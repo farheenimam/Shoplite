@@ -32,7 +32,7 @@ function addItem(userId, { productId, quantity } = {}) {
   const cart = rawCart(userId);
   const existing = cart.find((entry) => entry.productId === product.id);
   const newQuantity = (existing ? existing.quantity : 0) + quantity;
-  if (newQuantity > product.stock) throw new HttpError(409, 'Not enough stock');
+  if (newQuantity > product.stock) throw new HttpError(409, `Only ${product.stock} left in stock`);
   if (existing) {
     existing.quantity = newQuantity;
   } else {
